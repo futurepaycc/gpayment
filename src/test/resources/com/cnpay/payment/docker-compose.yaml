@@ -1,22 +1,23 @@
+# 开发和测试服务器，同时准备mysql和mongo的初始化数据脚本
 version: '2'
 services:
   mysql:
-    image: nginx
-    container_name: docker_a
+    image: mysql:5.7
+    container_name: mysql
     ports:
-    - 8080:80
+    - 3306:3306
   mongodb:
-    image: nginx
-    container_name: docker_a
+    image: mongo:4.1.2-xenial
+    container_name: mongodb
     ports:
-    - 8080:80
+    - 27017:27017
   redis:
-    image: nginx
-    container_name: docker_b
+    image: redis:4-alpine3.8
+    container_name: redis
     ports:
-    - 8081:80
+    - 6379:6379
   rabbitmq:
-    image: nginx
-    container_name: docker_b
+    image: rabbitmq:3.7.7-alpine
+    container_name: rabbitmq
     ports:
-    - 8081:80
+    - 5672:5672
