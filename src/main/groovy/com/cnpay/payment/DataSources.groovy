@@ -19,7 +19,7 @@ class DataSources {
 
     //单例不可以用公开构造函数
     private DataSources(){
-        def init_sql_path = this.class.getResource("payment_mysql.sql").getPath()
+        def init_sql_path = this.class.getResource("mysql_schema.sql").getPath()
         def initStr = "INIT=create schema if not exists test\\;runscript from '$init_sql_path'"
         mysql.setJdbcUrl("jdbc:h2:mem:test;MODE=MySQL;DATABASE_TO_UPPER=FALSE;$initStr")
     }
