@@ -1,0 +1,11 @@
+.*
+!.gitignore
+out/
+*.iml
+*.db
+build/
+bin/
+gradle/
+*.bat
+gradlew
+

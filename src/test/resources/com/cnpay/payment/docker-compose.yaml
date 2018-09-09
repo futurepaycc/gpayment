@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mysql:
+    image: nginx
+    container_name: docker_a
+    ports:
+    - 8080:80
+  mongodb:
+    image: nginx
+    container_name: docker_a
+    ports:
+    - 8080:80
+  redis:
+    image: nginx
+    container_name: docker_b
+    ports:
+    - 8081:80
+  rabbitmq:
+    image: nginx
+    container_name: docker_b
+    ports:
+    - 8081:80
