@@ -14,13 +14,31 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
+    volumes:
+    - ./mysql_schema.sql:/docker-entrypoint-initdb.d/mysql_schema.sql
     ports:
     - 3306:3306
   mongodb:
     image: mongo:4.1.2-xenial
     container_name: mongodb
+    volumes:
+    - ./mongo_seed_user.json:/mongo_seed_user.json
     ports:
     - 27017:27017
+  #用一个同种临时容器专门用来初始化mongodb,用单独的shell脚本启动会影响原始dockerfile里面的命令
+  #要导入多个脚本，写个shell，来循环执行(不指定collection，文件basename就是collection名)
+  mongodb_seed:
+    image: mongo:4.1.2-xenial
+    container_name: mongodb_seed
+    volumes:
+    - ./mongo_seed_user.json:/mongo_seed_user.json
+    - ./mongo_seed_channel.json:/mongo_seed_channel.json
+    #执行多个命令、多行的方式
+    command: >
+      bash -c "mongoimport --host mongodb --db cnpay --collection user --type json --file /mongo_seed_user.json --jsonArray
+      && mongoimport --host mongodb --db cnpay --collection channel --type json --file /mongo_seed_channel.json --jsonArray"
+    depends_on:
+    - mongodb
   # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
   redis:
     image: redis:4-alpine3.8
