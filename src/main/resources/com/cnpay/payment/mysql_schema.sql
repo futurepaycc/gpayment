@@ -1,4 +1,5 @@
 -- 为简化，所有的varchar(length)都可以设置为255
+-- 这里设置长度，为逻辑验证和业务提供一定说明而已
 create table fp_order(
     id varchar(36) PRIMARY key comment='uuid',
     amount varchar(16) comment='金额',
