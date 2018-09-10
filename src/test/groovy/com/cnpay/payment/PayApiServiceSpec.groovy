@@ -19,13 +19,13 @@ class PayApiServiceSpec extends Specification {
 
     def "B2C_PC"() {
         given:
-        def reqBody='{"payType":"B2C_PC","userId":"ab5cb8448d6422d52836a9a7a0a5a15e","amount":"100.00","hash":"asdf"}'
-        def message = JsonSlurper.newInstance().parseText(reqBody) //message是map
+            def reqBody='{"payType":"B2C_PC","userId":"ab5cb8448d6422d52836a9a7a0a5a15e","amount":"100.00","hash":"asdf"}'
+            def message = JsonSlurper.newInstance().parseText(reqBody) //message是map
         when:
-        def result = PayApiService.instance."$message.payType"(message)
+            def result = PayApiService.instance."$message.payType"(message)
         then:
-        println result
-        message.amount == "100.00"
+            println result
+            message.amount == "100.00"
     }
 
 }
