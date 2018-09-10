@@ -9,12 +9,12 @@ import org.junit.runners.Suite
  * https://stackoverflow.com/questions/6580670/testsuite-setup-in-junit-4
  */
 @RunWith(Suite)
-@Suite.SuiteClasses([HelloSpec,Hello2Spec])
+@Suite.SuiteClasses([DaoSpec,PayApiServiceSpec])
 class AllTests {
     @BeforeClass
     static void setUpClass() {
         println("在有所测试类之前执行....")
-        //TODO: 编写docker-compose文件，进行中间件测试
+        //TODO: docker-compose up
     }
 
     @AfterClass 

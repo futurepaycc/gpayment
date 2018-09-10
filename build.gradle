@@ -13,11 +13,12 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.5.0'
     //spark java
     compile group: 'com.sparkjava', name: 'spark-core', version: '2.6.0'
-    //h2 database
-    compile "com.h2database:h2:1.4.196"
+    //mysql client
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
     //HikariCP datasource
     compile "com.zaxxer:HikariCP:3.1.0"
     //mongo database client
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.8.1'
     compile 'org.mongodb:mongodb-driver-async:3.8.1'  //async
     //rabbitmq client
     compile 'com.rabbitmq:amqp-client:5.4.1' //client

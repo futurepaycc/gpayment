@@ -1,8 +1,8 @@
 package com.cnpay.payment
 
-import com.mongodb.async.client.MongoClient
-import com.mongodb.async.client.MongoClients
-import com.mongodb.async.client.MongoDatabase
+import com.mongodb.client.MongoClient
+import com.mongodb.client.MongoClients
+import com.mongodb.client.MongoDatabase
 import com.zaxxer.hikari.HikariDataSource
 import groovy.sql.Sql
 import org.redisson.Redisson
@@ -13,15 +13,17 @@ import javax.sql.DataSource
 @Singleton(strict = false) //false自定义构造函数才起作用
 class DataSources {
     private DataSource mysql = new HikariDataSource()
-    private MongoClient mongoClient = MongoClients.create()
     RedissonClient redis = Redisson.create()
-    MongoDatabase mongodb = mongoClient.getDatabase("testdb")
+
+    private com.mongodb.async.client.MongoClient mongoClientAsync = com.mongodb.async.client.MongoClients.create()
+    com.mongodb.async.client.MongoDatabase mongodbAsync = mongoClientAsync.getDatabase("cnpay")
+
+    private MongoClient mongoClient = MongoClients.create()
+    MongoDatabase mongodb=mongoClient.getDatabase("cnpay")
 
     //单例不可以用公开构造函数
     private DataSources(){
-        def init_sql_path = this.class.getResource("mysql_schema.sql").getPath()
-        def initStr = "INIT=create schema if not exists test\\;runscript from '$init_sql_path'"
-        mysql.setJdbcUrl("jdbc:h2:mem:test;MODE=MySQL;DATABASE_TO_UPPER=FALSE;$initStr")
+        mysql.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/cnpay?user=root&password=root&useUnicode=yes&characterEncoding=UTF-8&useSSL=false")
     }
 
     def sql(){

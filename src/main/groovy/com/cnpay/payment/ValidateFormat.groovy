@@ -6,13 +6,13 @@ import groovy.transform.Canonical
 @Canonical
 class Message_Format implements Validateable{
     String payType
-    String userID
+    String userId
     String amount
     String hash
 
     static constraints = {
         payType size: 5..15, blank: false
-        userID size: 4..4, blank: false
+        userId size: 32..32, blank: false
         amount size: 4..7, blank:false, validator:{val,obj,errors->
             if( !(val ==~ /^\d+\.\d{2}$/) ) errors.rejectValue("amount","regexp.error")
         }
@@ -23,7 +23,7 @@ class Message_Format implements Validateable{
 @Canonical
 class B2C_PC_Message_Format implements Validateable{
     String payType
-    String userID
+    String userId
     String amount
     String hash
     String created

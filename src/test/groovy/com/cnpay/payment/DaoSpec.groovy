@@ -5,10 +5,8 @@ import spock.lang.Specification
 /**
  * https://www.baeldung.com/groovy-spock
  */
-class HelloSpec extends Specification {
+class DaoSpec extends Specification {
 
-    //TODO: 用docker命令启动中间件容器
-    //TODO: 利用junit suite组织spock spec
     def setupSpec(){
         println "before first"
     }
@@ -17,21 +15,12 @@ class HelloSpec extends Specification {
         println "after last"
     }
 
-    def "B2C_PC"() {
-        given:
-            def reqBody='{"payType":"B2C_PC","userID":"0001","amount":"100.00","hash":"asdf"}'
-            def message = JsonSlurper.newInstance().parseText(reqBody) //message是map
-        when:
-            def result = PayApiService.instance."$message.payType"(message)
-        then:
-            println result
-            message.amount == "100.00"
-    }
 
     def "sql"(){
         given:
             def sql =  DataSources.instance.sql()
         when:
+            sql.execute("drop table if exists person")
             sql.execute("create table person(id int auto_increment primary key,name varchar(64),age integer)  ")
             sql.execute("insert into person(name,age) values(?,?)",["liunix",35])
             def result = sql.firstRow("select count(*) as cnt from person")
@@ -46,6 +35,7 @@ class HelloSpec extends Specification {
             def result = -1
         when:
             DataSources.instance.withSql { sql->
+                sql.execute("drop table  if exists person2")
                 sql.execute("create table person2(id int auto_increment primary key,name varchar(64),age integer)  ")
                 sql.execute("insert into person2(name,age) values(?,?)",["liunix",35])
                 result = sql.firstRow("select count(*) as cnt from person2")

@@ -21,8 +21,6 @@ services:
   mongodb:
     image: mongo:4.1.2-xenial
     container_name: mongodb
-    volumes:
-    - ./mongo_seed_user.json:/mongo_seed_user.json
     ports:
     - 27017:27017
   #用一个同种临时容器专门用来初始化mongodb,用单独的shell脚本启动会影响原始dockerfile里面的命令

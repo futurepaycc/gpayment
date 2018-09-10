@@ -29,3 +29,5 @@ create table fp_account_line(
     amout varchar(16) comment '转帐金额',
     created varchar(14) comment '创建时间yyyymmddHHMMss'
 ) comment='帐务流水表';
+insert into fp_account(id,balance,balance_lock,balance_d0,balance_d0_lock,balance_d1,balance_d1_lock,balance_t1,balance_t1_lock,userId,created)
+values(uuid(),"0","0","0","0","0","0","0","0","c6121fa309a630f25a2d89bc5621f3ed","20180910111114");
